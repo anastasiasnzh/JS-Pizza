@@ -72,13 +72,13 @@
   margin-top: 100px;
 }
 .allPizzas {
-  font-size: 28px;
+  font-size: @textSize*2;
   display: inline-block;
   float: none;
 }
 .allPizzasNumber {
-  color: white;
-  background-color: orange;
+  color: @addColor2;
+  background-color: @mainColor;
   border-radius: 10px;
   margin: 5px;
   padding-left: 5px;
@@ -112,5 +112,9 @@
     max-width: 40px;
     margin-left: 20px;
   }
+}
+.footer{
+border-top: 1px solid #e6e6e6;
+  color: darken(@addColor2, 75%);
 }
 
