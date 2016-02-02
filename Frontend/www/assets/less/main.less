@@ -1,3 +1,116 @@
-@mainColor: blue;
+@mainColor: orange;
+@addColor1: black;
+@addColor2: white;
+@sqrtSize: 60px;
+@textSize: 14px;
 
 @import "pizza/pizza-card";
+//@import "top/header";
+//@import "top/title-and-buttons";
+//@import "bottom/discount";
+//@import "side/sidePanel";
+
+.upperPanel {
+  background-color: @addColor1;
+  color: @addColor2;
+  opacity: 0.5;
+  //position: fixed;
+  //z-index: 1;
+}
+
+.pizzaKMA {
+  display: inline-block;
+  width: @sqrtSize;
+  height: @sqrtSize;
+  color: @addColor2;
+  background-color: @mainColor;
+  margin-left: @sqrtSize/10;
+  padding: @sqrtSize/5;
+  text-align: center;
+}
+
+.inf {
+  margin-left: 25px;
+}
+
+.allPizzas {
+  font-size: @textSize*2;
+  display: inline-block;
+  //text-align: center;
+  float: none;
+}
+
+.allPizzasNumber {
+  color: @addColor2;
+  background-color: @mainColor;
+  border-radius: 10px;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.pizzaType {
+  color: @mainColor;
+  background-color: @addColor2;
+  border: none;
+}
+
+@media (max-width: 800px) {
+  .freePizza {
+    display: none;
+  }
+
+}
+@media (max-width: 400px) {
+  .time {
+    display: none;
+  }
+
+}
+.mainTitle {
+  margin: 10px;
+  margin-top: 100px;
+}
+.allPizzas {
+  font-size: 28px;
+  display: inline-block;
+  float: none;
+}
+.allPizzasNumber {
+  color: white;
+  background-color: orange;
+  border-radius: 10px;
+  margin: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.bottomSqrt {
+  position: fixed;
+  bottom: 0px;
+  left: 5px;
+  hr {
+    border-color: darken(@mainColor, 10%);
+  }
+}
+.sidePanel {
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.sidePizza {
+  background-color: #f2f2f2;
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+
+  h4{
+    color: @mainColor;
+  }
+
+  img{
+    max-width: 40px;
+    margin-left: 20px;
+  }
+}
+
