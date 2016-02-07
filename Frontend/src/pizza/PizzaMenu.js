@@ -19,6 +19,8 @@ function showPizzaList(list) {
         var $node = $(html_code);
 
         $node.find(".buy-big").click(function(){
+            //var txt = $(this).parent().find('.word').val();
+            //$('.article:contains("' + txt + '")').hide();
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
         $node.find(".buy-small").click(function(){

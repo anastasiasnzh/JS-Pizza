@@ -20,15 +20,54 @@ function addToCart(pizza, size) {
     //Додавання однієї піци в кошик покупок
 
     //Приклад реалізації, можна робити будь-яким іншим способом
+
+    //function pizzaAlreadyInBusket(cart_item) {
+    //    var html_code = Templates.PizzaCart_OneItem(cart_item);
+    //
+    //    var $node = $(html_code);
+    //
+    //    var sideName = $node.find("h4");
+    //
+    //    $cart.append($node);
+    //}
+    //
+    //Cart.forEach(pizzaAlreadyInBusket);
+    //var id=-1;
+    function isInCart(Cart, pizza, size){
+        for(var i=0;i<Cart.length;i++){
+            if((Cart[i].pizza==pizza)&&(Cart[i].size==size)) return i;
+        //
+        }
+        return -1;
+    }
+
+    if(isInCart(Cart,pizza,size)!=-1){
+        Cart[isInCart(Cart,pizza,size)].quantity += 1;
+    }else{
     Cart.push({
         pizza: pizza,
         size: size,
         quantity: 1
     });
 
+    var new_number = $(".sidePanel").find(".allPizzasNumber").text();
+    new_number=parseInt(new_number)+1;
+    $(".sidePanel").find(".allPizzasNumber").text(new_number);
+    }
     //Оновити вміст кошика на сторінці
     updateCart();
 }
+
+//function checkIfAlreadyInBusket(main_name){
+//    function checkOne(main_name){
+//        var html_code = Templates.PizzaCart_OneItem(cart_item);
+//            var $node = $(html_code);
+//            var sideName = $node.find("h4");
+//        if(sideName==main_name){
+//
+//        }
+//    }
+//}
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
@@ -46,6 +85,12 @@ function initialiseCart() {
     var saved_pizza=Storage.get('cart');
     if(saved_pizza){
         Cart=saved_pizza;
+    }
+
+
+    var saved_number=Storage.get("number_sidePanel");
+    if(saved_number){
+        $(".sidePanel").find(".allPizzasNumber").text(saved_number)
     }
 
     updateCart();
@@ -81,6 +126,9 @@ function updateCart() {
     }
 
     Cart.forEach(showOnePizzaInCart);
+
+    var nu = $(".sidePanel").find(".allPizzasNumber").text();
+    Storage.set("number_sidePanel",nu);
 
     Storage.set("cart",Cart);
 }
