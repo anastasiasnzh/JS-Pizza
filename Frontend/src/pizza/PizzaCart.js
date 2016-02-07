@@ -33,13 +33,7 @@ function addToCart(pizza, size) {
     //
     //Cart.forEach(pizzaAlreadyInBusket);
     //var id=-1;
-    function isInCart(Cart, pizza, size){
-        for(var i=0;i<Cart.length;i++){
-            if((Cart[i].pizza==pizza)&&(Cart[i].size==size)) return i;
-        //
-        }
-        return -1;
-    }
+
 
     if(isInCart(Cart,pizza,size)!=-1){
         Cart[isInCart(Cart,pizza,size)].quantity += 1;
@@ -58,6 +52,14 @@ function addToCart(pizza, size) {
     updateCart();
 }
 
+function isInCart(Cart, pizza, size){
+    for(var i=0;i<Cart.length;i++){
+        if((Cart[i].pizza==pizza)&&(Cart[i].size==size)) return i;
+        //
+    }
+    return -1;
+}
+
 //function checkIfAlreadyInBusket(main_name){
 //    function checkOne(main_name){
 //        var html_code = Templates.PizzaCart_OneItem(cart_item);
@@ -71,7 +73,18 @@ function addToCart(pizza, size) {
 
 function removeFromCart(cart_item) {
     //Видалити піцу з кошика
-    //TODO: треба зробити
+    var html_code = Templates.PizzaCart_OneItem(cart_item);
+
+    var $node = $(html_code);
+    //$node.find(".remove").click(function(){
+        $node.remove();
+    //})
+    //be very careful!
+    Cart.splice(Cart.indexOf(cart_item),1);
+
+    var new_number = $(".sidePanel").find(".allPizzasNumber").text();
+    new_number=parseInt(new_number)-1;
+    $(".sidePanel").find(".allPizzasNumber").text(new_number);
 
     //Після видалення оновити відображення
     updateCart();
@@ -125,7 +138,7 @@ function updateCart() {
         $node.find(".minus").click(function(){
             //Зменшуємо кількість замовлених піц
             if(cart_item.quantity==1){
-                removeFromCart();
+                removeFromCart(cart_item);
             }
             else{
             cart_item.quantity -= 1;
@@ -134,6 +147,10 @@ function updateCart() {
             //Оновлюємо відображення
             updateCart();
         });
+
+        $node.find(".remove").click(function(){
+            removeFromCart(cart_item);
+        })
 
         $cart.append($node);
     }
