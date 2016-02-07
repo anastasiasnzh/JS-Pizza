@@ -122,6 +122,19 @@ function updateCart() {
             updateCart();
         });
 
+        $node.find(".minus").click(function(){
+            //Зменшуємо кількість замовлених піц
+            if(cart_item.quantity==1){
+                removeFromCart();
+            }
+            else{
+            cart_item.quantity -= 1;
+            }
+
+            //Оновлюємо відображення
+            updateCart();
+        });
+
         $cart.append($node);
     }
 
