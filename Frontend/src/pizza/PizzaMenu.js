@@ -36,10 +36,44 @@ function showPizzaList(list) {
 function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
+    var count=0;
 
     Pizza_List.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
-        //pizza_shown.push(pizza);
+        //Якщо піца відповідає фільтру
+        //var product=filter;
+        if(filter=='meat'){
+            if(typeof pizza.content.meat==='undefined'){
+
+            }else {
+                pizza_shown.push(pizza);
+            }
+        }else if(filter=='pineapple'){
+            if(typeof pizza.content.pineapple==='undefined'){
+
+            }else {
+                pizza_shown.push(pizza);
+            }
+        }else if(filter=='mushroom'){
+            if(typeof pizza.content.mushroom==='undefined'){
+
+            }else {
+                pizza_shown.push(pizza);
+            }
+        }else if(filter=='ocean'){
+            if(typeof pizza.content.ocean==='undefined'){
+
+            }else {
+                pizza_shown.push(pizza);
+            }
+        }else if(filter=='tomato'){
+            if(typeof pizza.content.tomato==='undefined'){
+
+            }else {
+                pizza_shown.push(pizza);
+            }
+        }else{
+
+        }
 
         //TODO: зробити фільтри
     });
@@ -47,6 +81,60 @@ function filterPizza(filter) {
     //Показати відфільтровані піци
     showPizzaList(pizza_shown);
 }
+
+var $pizza_list=$('#pizza_list');
+
+$("#all").click(function(){
+    $pizza_list.html("");
+    $("#title").text("Усі піци");
+    $("#titleNumber").text("8");
+    initialiseMenu();
+})
+
+$("#meat").click(function(){
+    $("#all").addClass("pizzaType");
+    $pizza_list.html("");
+    $("#title").text("М'ясні піци");
+    $("#titleNumber").text("5");
+    filterPizza('meat');
+})
+
+
+$("#pineapple").click(function(){
+    $("#all").addClass(".pizzaType");
+    $pizza_list.html("");
+    $("#title").text("Піци з ананасами");
+    $("#titleNumber").text("3");
+    filterPizza('pineapple');
+})
+
+
+$("#mushroom").click(function(){
+    $("#all").addClass("pizzaType");
+    $pizza_list.html("");
+    $("#title").text("Піци з грибами");
+    $("#titleNumber").text("3");
+    filterPizza('mushroom');
+})
+
+
+$("#ocean").click(function(){
+    $("#all").addClass("pizzaType");
+    $pizza_list.html("");
+    $("#title").text("Піци з морепродуктами");
+    $("#titleNumber").text("2");
+    filterPizza('ocean');
+})
+
+
+$("#vega").click(function(){
+    $("#all").addClass("pizzaType");
+    $pizza_list.html("");
+    $("#title").text("Вегетаріанські піци");
+    $("#titleNumber").text("1");
+    filterPizza('tomato');
+})
+
 
 function initialiseMenu() {
     //Показуємо усі піци
