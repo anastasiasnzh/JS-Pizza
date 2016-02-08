@@ -163,6 +163,15 @@ function updateCart() {
     Storage.set("cart",Cart);
 }
 
+$("#deleteOrders").click(function(){
+    //Cart.forEach(removeFromCart);
+    //updateCart();
+    Cart=[];
+    $cart.html("");
+    $(".sidePanel").find(".allPizzasNumber").text("0");
+
+})
+
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
