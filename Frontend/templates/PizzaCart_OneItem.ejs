@@ -16,12 +16,12 @@
     <img src="assets/images/size-icon.svg"> <span><%= pizza[size].size %></span>
     <img src="assets/images/weight.svg" style="margin-left: 10px"> <span><%= pizza[size].weight %></span>
 </div>
-<span><b><%= pizza[size].price %> грн.</b></span>
+<span id="price"><b><%= pizza[size].price %> грн.</b></span>
 <span class="btn-group" role="group" style="margin: 10px">
 <button type="button" class="btn btn-danger btn-xs minus" style="border-radius: 20px; margin-top: 5px">
     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </button>
-<span style="margin: 5px; float: left"><b><%= quantity %></b></span>
+<span style="margin: 5px; float: left" id="quantity"><b><%= quantity %></b></span>
 <button type="button" class="btn btn-success btn-xs plus" style="border-radius: 20px; margin-top: 5px">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
