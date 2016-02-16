@@ -27,14 +27,18 @@
                     <div class="form-group">
                         <label for="name">Ім'я</label>
                         <input type="text" class="form-control" id="name" placeholder="Ім'я Прізвище">
+                        <span id="helpBlock1" class="help-block errorLabel invisible">Введіть тільки власне ім'я, без цифр</span>
+
                     </div>
                     <div class="form-group">
-                        <label for="phoneNumber">Телефон</label>
+                        <label for="phoneNumber" class="l">Телефон</label>
                         <input type="text" class="form-control" id="phoneNumber" placeholder="+380994010999">
+                        <span id="helpBlock2" class="help-block errorLabel invisible">Введіть номер телефону у форматі +380 або почніть з 0</span>
                     </div>
                     <div class="form-group">
                         <label for="adress">Адреса</label>
                         <input type="text" class="form-control" id="adress" placeholder="Київ, вул. Спаська, 2">
+                        <span id="helpBlock3" class="help-block errorLabel invisible">Введіть адресу доставки піци</span>
                     </div>
 
             </div>
@@ -45,7 +49,7 @@
                     <h5><span><b>Приблизний час доставки: </b></span>невідомий<span></span></h5>
                     <h5><span><b>Адреса доставки: </b></span><span>невідома</span></h5>
                 </div>
-                <button type="submit" class="btn btn-warning pull-right" style="margin-bottom: 15px">Далі<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </button>
+                <button id="next" type="button" class="btn btn-warning pull-right" style="margin-bottom: 15px">Далі<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </button>
             </div>
             </form>
             <%include common/footer.ejs%>

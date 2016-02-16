@@ -22,8 +22,8 @@ $(function(){
 
     $("#order").click(function(){
         API.createOrder({
-            name: "A",
-            phone: "P",
+            name: "",
+            phone: "",
             pizza: PizzaCart.getPizzaInCart()
         }, function(err,result){
             if(err){
@@ -34,6 +34,24 @@ $(function(){
                 //alert("Order created");
             }
         })
+    })
+
+    $("#next").click(function(){
+
+        if(($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)){
+            $("#helpBlock1").removeClass('invisible');
+            //var i=$("#name").value.search(/[0-9]/i);   ($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)
+            //$("#helpBlock1").value(i)
+            //$('#name').parent.find('.l').addClass('errorLabel');
+            //$("#name").addClass("errorBorder");
+        }
+
+        if(($("#phoneNumber").value==null)||($("#phoneNumber").value=="")||(($("#phoneNumber").value.charAt[0]!=0)&&($("#phoneNumber").value.substring(0,4)!="+380"))){
+            $("#helpBlock2").removeClass('invisible');
+        }
+        if(($("#adress").value==null)||($("#adress").value=="")){
+            $("#helpBlock3").removeClass('invisible');
+        }
     })
 });
 
