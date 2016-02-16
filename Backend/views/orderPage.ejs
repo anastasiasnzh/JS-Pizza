@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Pizza</title>
+
+    <!-- Bootsrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- LESS основний файл -->
+    <link rel="stylesheet/less" type="text/css" href="assets/less/main.less"/>
+    <!-- LESS JavaScript компілятор -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-8 col-md-9">
+            <% include common/header.ejs %>
+            <h4 style="margin-top: 150px">1. Контактні дані</h4>
+            <form>
+            <div class="col-xs-3 col-sm-4 col-md-4">
+
+                    <div class="form-group">
+                        <label for="name">Ім'я</label>
+                        <input type="text" class="form-control" id="name" placeholder="Ім'я Прізвище">
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Телефон</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="+380994010999">
+                    </div>
+                    <div class="form-group">
+                        <label for="adress">Адреса</label>
+                        <input type="text" class="form-control" id="adress" placeholder="Київ, вул. Спаська, 2">
+                    </div>
+
+            </div>
+
+            <div class="col-xs-3 col-sm-4 col-md-4">
+                <div class="deliveryInfo">
+                    <h4>Інформація про замовлення</h4>
+                    <h5><span><b>Приблизний час доставки: </b></span>невідомий<span></span></h5>
+                    <h5><span><b>Адреса доставки: </b></span><span>невідома</span></h5>
+                </div>
+                <button type="submit" class="btn btn-warning pull-right" style="margin-bottom: 15px">Далі<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </button>
+            </div>
+            </form>
+            <%include common/footer.ejs%>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <%include common/rightPanel.ejs%>
+
+        </div>
+    </div>
+</div>
+
+<!-- jQuery JavaScript -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!--Bootsrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!--Own JavaScript -->
+<script type="text/javascript" src="assets/js/main.js"></script>
+</body>
+</html>
+ 
