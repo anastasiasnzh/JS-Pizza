@@ -205,6 +205,7 @@ $("#deleteOrders").click(function(){
     $(".sidePanel").find(".allPizzasNumber").text("0");
     sumOfOrder=0;
     $("#sum").text(sumOfOrder);
+    updateCart();
 
 })
 
