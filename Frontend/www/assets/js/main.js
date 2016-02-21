@@ -38,6 +38,7 @@ exports.getPizzaList = function(callback) {
 
 exports.createOrder = function(order_info, callback) {
     backendPost("/api/create-order/", order_info, callback);
+    //var order_info=req_body;
 };
 },{}],2:[function(require,module,exports){
 /**
@@ -226,7 +227,7 @@ exports.get =	function(key)	{
 exports.set =	function(key,	value)	{
     return	basil.set(key,	value);
 };
-},{"basil.js":8}],4:[function(require,module,exports){
+},{"basil.js":9}],4:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -238,7 +239,22 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\n\nfunction getIngredientsArray(pizz
 
 exports.PizzaCart_OneItem = ejs.compile("\n\n<div class=\"sidePizza\" id=\"cart\">\n    <!--id=\"cart\"-->\n    <!--make a cover for all sidePizzas-->\n<span>\n    <!--write pizzas' size in ukr-->\n    <%var pizzaSizeUkr;%>\n    <% if(size==\"big_size\"){\n        pizzaSizeUkr=\"Велика\";\n    }else{\n        pizzaSizeUkr=\"Мала\";\n    }%>\n<h4><%= pizza.title %> (<%= pizzaSizeUkr %>)</h4>\n<div>\n    <img src=\"assets/images/size-icon.svg\"> <span><%= pizza[size].size %></span>\n    <img src=\"assets/images/weight.svg\" style=\"margin-left: 10px\"> <span><%= pizza[size].weight %></span>\n</div>\n<span id=\"price\"><b><%= pizza[size].price %> грн.</b></span>\n<span class=\"btn-group\" role=\"group\" style=\"margin: 10px\">\n<button type=\"button\" class=\"btn btn-danger btn-xs minus\" style=\"border-radius: 20px; margin-top: 5px\">\n    <span class=\"glyphicon glyphicon-minus\" aria-hidden=\"true\"></span>\n</button>\n<span style=\"margin: 5px; float: left\" id=\"quantity\"><b><%= quantity %></b></span>\n<button type=\"button\" class=\"btn btn-success btn-xs plus\" style=\"border-radius: 20px; margin-top: 5px\">\n    <span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span>\n</button>\n</span>\n<button type=\"button\" class=\"btn btn-warning btn-xs remove\"\n        style=\"border-radius: 20px; margin-top: 5px; margin-left: 10px; background-color: white\">\n    <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\" style=\"color: orange\"></span>\n</button>\n</span>\n<span>\n    <% var str = pizza.icon; %>\n    <% var arr=str.split(\".\");%>\n    <%var picture_name=arr[0]+\"_half.jpg\";%>\n<img src=<%=picture_name%>>\n</span>\n</div>");
 
-},{"ejs":9}],5:[function(require,module,exports){
+},{"ejs":10}],5:[function(require,module,exports){
+function initialize() {
+//Тут починаємо працювати з картою
+    console.log('!!');
+var mapProp = {
+        center: new google.maps.LatLng(50.464379,30.519131),
+        zoom: 11
+    };
+    var html_element = document.getElementById("googleMap");
+    var map = new google.maps.Map(html_element, mapProp);
+//Карта створена і показана
+}
+// //Коли сторінка завантажилась
+google.maps.event.addDomListener(window, 'load', initialize);
+
+},{}],6:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -279,7 +295,7 @@ $(function(){
 
     $("#next").click(function(){
 
-        if(($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)){
+        if(($("#name").val()=="")||($("#name").val().search(/[0-9]/i)!=-1)){
             $("#helpBlock1").removeClass('invisible');
             //var i=$("#name").value.search(/[0-9]/i);   ($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)
             //$("#helpBlock1").value(i)
@@ -287,17 +303,44 @@ $(function(){
             //$("#name").addClass("errorBorder");
         }
 
-        if(($("#phoneNumber").value==null)||($("#phoneNumber").value=="")||(($("#phoneNumber").value.charAt[0]!=0)&&($("#phoneNumber").value.substring(0,4)!="+380"))){
+        if(($("#phoneNumber").val()=="")||(($("#phoneNumber").val().charAt[0]!=0)&&($("#phoneNumber").val().substring(0,4)!="+380"))){
             $("#helpBlock2").removeClass('invisible');
         }
-        if(($("#adress").value==null)||($("#adress").value=="")){
+        if(($("#adress").val()=="")){
             $("#helpBlock3").removeClass('invisible');
         }
+        API.createOrder({
+            name: "",
+            phone: "",
+            pizza: PizzaCart.getPizzaInCart()
+        }, function(err,result){
+            if(err){
+                alert("Can't get order");
+            }else{
+                LiqPayCheckout.init({
+                    data: result.data,
+                    signature:result.signature,
+                    embedTo: "#liqpay",
+                    mode: "popup"
+                    // embed || popup
+                    }).on("liqpay.callback", function(data){
+                    console.log(data.status);
+                    console.log(data);
+                }).on("liqpay.ready", function(data){
+                    // ready
+                    }).on("liqpay.close", function(data){
+                    // close
+                    });
+
+                }
+        })
     })
+
+    require('./googleMap');
 });
 
 
-},{"./API":1,"./Pizza_List":2,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],6:[function(require,module,exports){
+},{"./API":1,"./Pizza_List":2,"./googleMap":5,"./pizza/PizzaCart":7,"./pizza/PizzaMenu":8}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -422,7 +465,8 @@ function initialiseCart() {
 
     var saved_sum=Storage.get("sum");
     if(saved_sum){
-        $("#sum").text(saved_sum);
+        sumOfOrder=saved_sum;
+        $("#sum").text(sumOfOrder);
     }
 
     updateCart();
@@ -514,7 +558,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Storage":3,"../Templates":4}],7:[function(require,module,exports){
+},{"../Storage":3,"../Templates":4}],8:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -663,7 +707,7 @@ function initialiseMenu(server_list) {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Templates":4,"./PizzaCart":6}],8:[function(require,module,exports){
+},{"../Templates":4,"./PizzaCart":7}],9:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -1032,7 +1076,7 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1783,7 +1827,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":11,"./utils":10,"fs":12,"path":13}],10:[function(require,module,exports){
+},{"../package.json":12,"./utils":11,"fs":13,"path":14}],11:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1926,7 +1970,7 @@ exports.cache = {
 };
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 module.exports={
   "name": "ejs",
   "description": "Embedded JavaScript templates",
@@ -2005,9 +2049,9 @@ module.exports={
   "directories": {}
 }
 
-},{}],12:[function(require,module,exports){
-
 },{}],13:[function(require,module,exports){
+
+},{}],14:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2235,7 +2279,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":14}],14:[function(require,module,exports){
+},{"_process":15}],15:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2328,4 +2372,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[5]);
+},{}]},{},[6]);

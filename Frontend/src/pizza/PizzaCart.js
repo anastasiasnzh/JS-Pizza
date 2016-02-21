@@ -122,7 +122,8 @@ function initialiseCart() {
 
     var saved_sum=Storage.get("sum");
     if(saved_sum){
-        $("#sum").text(saved_sum);
+        sumOfOrder=saved_sum;
+        $("#sum").text(sumOfOrder);
     }
 
     updateCart();

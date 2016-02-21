@@ -52,6 +52,9 @@
                 <button id="next" type="button" class="btn btn-warning pull-right" style="margin-bottom: 15px">Далі<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> </button>
             </div>
             </form>
+            <div id="googleMap" style="width: 400px;height: 300px"></div>
+
+
             <%include common/footer.ejs%>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3">
@@ -60,6 +63,14 @@
         </div>
     </div>
 </div>
+
+<!-- місце для віджету -->
+<div id="liqpay"></div>
+<!-- піключаємо скрипт -->
+<script src="//static.liqpay.com/libjs/checkout.js"></script>
+
+<script type="text/javascript"         src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD99YyiZL3DZnOnuTCKJPeyI1hqu0wRMWY"></script>
+
 
 <!-- jQuery JavaScript -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

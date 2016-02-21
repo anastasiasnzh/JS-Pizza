@@ -38,7 +38,7 @@ $(function(){
 
     $("#next").click(function(){
 
-        if(($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)){
+        if(($("#name").val()=="")||($("#name").val().search(/[0-9]/i)!=-1)){
             $("#helpBlock1").removeClass('invisible');
             //var i=$("#name").value.search(/[0-9]/i);   ($("#name").value==null)||($("#name").value=="")||($("#name").value.search(/[0-9]/i)!=-1)
             //$("#helpBlock1").value(i)
@@ -46,12 +46,39 @@ $(function(){
             //$("#name").addClass("errorBorder");
         }
 
-        if(($("#phoneNumber").value==null)||($("#phoneNumber").value=="")||(($("#phoneNumber").value.charAt[0]!=0)&&($("#phoneNumber").value.substring(0,4)!="+380"))){
+        if(($("#phoneNumber").val()=="")||(($("#phoneNumber").val().charAt[0]!=0)&&($("#phoneNumber").val().substring(0,4)!="+380"))){
             $("#helpBlock2").removeClass('invisible');
         }
-        if(($("#adress").value==null)||($("#adress").value=="")){
+        if(($("#adress").val()=="")){
             $("#helpBlock3").removeClass('invisible');
         }
+        API.createOrder({
+            name: "",
+            phone: "",
+            pizza: PizzaCart.getPizzaInCart()
+        }, function(err,result){
+            if(err){
+                alert("Can't get order");
+            }else{
+                LiqPayCheckout.init({
+                    data: result.data,
+                    signature:result.signature,
+                    embedTo: "#liqpay",
+                    mode: "popup"
+                    // embed || popup
+                    }).on("liqpay.callback", function(data){
+                    console.log(data.status);
+                    console.log(data);
+                }).on("liqpay.ready", function(data){
+                    // ready
+                    }).on("liqpay.close", function(data){
+                    // close
+                    });
+
+                }
+        })
     })
+
+    require('./googleMap');
 });
 
