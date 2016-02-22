@@ -18,17 +18,17 @@
 </div>
 <span id="price"><b><%= pizza[size].price %> грн.</b></span>
 <span class="btn-group" role="group" style="margin: 10px">
-<button type="button" class="btn btn-danger btn-xs minus" style="border-radius: 20px; margin-top: 5px">
+<button type="button" class="btn btn-danger btn-xs minus" style="border-radius: 20px; margin-top: 5px" id="minus">
     <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
 </button>
 <span style="margin: 5px; float: left" id="quantity"><b><%= quantity %></b></span>
-<button type="button" class="btn btn-success btn-xs plus" style="border-radius: 20px; margin-top: 5px">
+<button type="button" class="btn btn-success btn-xs plus" style="border-radius: 20px; margin-top: 5px" id="plus">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 </button>
 </span>
 <button type="button" class="btn btn-warning btn-xs remove"
         style="border-radius: 20px; margin-top: 5px; margin-left: 10px; background-color: white">
-    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: orange"></span>
+    <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: orange" id="remove"></span>
 </button>
 </span>
 <span>

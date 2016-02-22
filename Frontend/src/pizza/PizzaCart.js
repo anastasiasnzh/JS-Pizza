@@ -125,6 +125,19 @@ function initialiseCart() {
         sumOfOrder=saved_sum;
         $("#sum").text(sumOfOrder);
     }
+    var url=window.location.toString();
+
+    if(url.indexOf('/order.html')+1){
+        $('#deleteOrders').addClass("invisible");
+        $("#order").addClass("invisible");
+        $("#editOrder").removeClass("invisible");
+        //alert(1);
+    }else{
+        $('#deleteOrders').removeClass("invisible");
+        $("#order").removeClass("invisible");
+        $("#editOrder").addClass("invisible");
+        //alert(url);
+    }
 
     updateCart();
 }
@@ -183,6 +196,20 @@ function updateCart() {
             sumOfOrder=sumOfOrder-parseInt(s)*parseInt(amount);
             $("#sum").text(sumOfOrder);
         })
+
+        var url=window.location.toString();
+
+        if(url.indexOf('/order.html')+1){
+            $node.find('.plus').addClass("invisible");
+            $node.find('.minus').addClass("invisible");
+            $node.find('.remove').addClass("invisible");
+
+        }else{
+            $node.find('.plus').removeClass("invisible");
+            $node.find('.minus').removeClass("invisible");
+            $node.find('.remove').removeClass("invisible");
+
+        }
 
         $cart.append($node);
         //$("#sum").text(sumOfOrder);
